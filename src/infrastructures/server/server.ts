@@ -1,5 +1,7 @@
 // External modules
 import express, { Application } from 'express';
+
+// Handlers
 import { ServerHandler } from './handlers/server.handler';
 
 // Interfaces
@@ -18,8 +20,11 @@ export class Server {
         this.instance.use(route, app);
     };
 
-    public start(): void {
-        this.instance.use('*', ServerHandler.notFound)
-        this.instance.listen(this.configs.port, () => console.log('Server started on port 3000'));
+    public async start(): Promise<void> {
+        this.instance.use('*', ServerHandler.notFound);
+
+        this.instance.on('error', (error: Error) => ServerHandler.onError(error));
+
+        await this.instance.listen(this.configs.port, () => console.log('Server started on port 3000'));
     }
 }
