@@ -3,8 +3,6 @@
         "src"
     ],
     "ext": "ts,json",
-    "ignore": [
-        "src/**/*.spec.ts"
-    ],
-    "exec": "npm run build && npm start"
+    "ignore": [],
+    "exec": "npx ts-node ./src/index.ts"
 }
