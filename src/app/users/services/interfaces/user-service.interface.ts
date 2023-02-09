@@ -3,4 +3,5 @@ import { User, UserDetails, UserRepository, UsersFilterOptions } from "../../int
 
 export interface IUserService {
     get(filter: UsersFilterOptions): Promise<User[]>;
+    getDetailsByUsername(username: string): Promise<UserDetails>;
 }
