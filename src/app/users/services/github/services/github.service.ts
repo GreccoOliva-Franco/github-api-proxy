@@ -5,13 +5,14 @@ import axios from 'axios';
 import { IGithubService } from "./interfaces/github-service.interface";
 import {
     UsersFilterOptions,
+    UserRepository,
 } from '../../../interfaces/user.interface';
 import {
     GitHubUser,
     GitHubUsersFilterOptions,
+    GitHubRepository,
     GitHubUserDetailed,
 } from "../interfaces/github.interface";
-
 
 // Errors
 import { ServiceUnavailableException } from '../../../../../shared/errors/services/services.errors';
@@ -27,6 +28,7 @@ export class GithubService implements IGithubService {
                 by: {
                     username: {
                         root: '/users/:username',
+                        repositories: '/users/:username/repos',
                     },
                 }
             },
@@ -53,6 +55,18 @@ export class GithubService implements IGithubService {
             const { data: user } = await axios.get(url);
 
             return <GitHubUserDetailed>user;
+        } catch (error: unknown) {
+            throw new ServiceUnavailableException('Service is unavailable');
+        }
+    };
+
+    async getRepositoriesByUsername(username: string): Promise<GitHubRepository[]> {
+        try {
+            const url = `${this.endpoints.host}${this.endpoints.users.by.username.repositories}`
+                .replace(':username', username);
+            const { data: repos } = await axios.get(url);
+
+            return <GitHubRepository[]>repos;
         } catch (error: unknown) {
             throw new ServiceUnavailableException('Service is unavailable');
         }

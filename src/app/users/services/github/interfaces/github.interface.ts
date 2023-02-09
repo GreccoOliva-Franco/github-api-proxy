@@ -57,4 +57,33 @@ export interface GitHubUserDetailed {
     updated_at: string;
 }
 
+export interface GitHubRepository {
+    id: number;
+    node_id: string;
+    name: string;
+    full_name: string;
+    private: boolean;
+    owner: GitHubUser;
+    html_url: string;
+    description: string;
+    fork: boolean;
+    url: string;
+    forks_url: string;
+    keys_url: string;
+    collaborators_url: string;
+    teams_url: string;
+    hooks_url: string;
+    issue_events_url: string;
+    events_url: string;
+    assignees_url: string;
+    branches_url: string;
+    tags_url: string;
+    blobs_url: string;
+    git_tags_url: string;
+    git_refs_url: string;
+    trees_url: string;
+    statuses_url: string;
+    languages_url: string;
+}
+
 export interface GitHubUsersFilterOptions extends UsersFilterOptions { }
