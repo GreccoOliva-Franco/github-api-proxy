@@ -11,4 +11,7 @@ const router = Router();
 router.route('/')
     .get(async (req: Request, res: Response) => await (new UserController()).get(req, res));
 
+router.route('/:username/details')
+    .get(async (req: Request, res: Response) => await (new UserController()).getDetailsByUsername(req, res));
+
 export default router;
