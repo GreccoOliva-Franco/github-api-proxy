@@ -1,8 +1,3 @@
-// External modules
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 // Configs
 import configs from './configs';
 
