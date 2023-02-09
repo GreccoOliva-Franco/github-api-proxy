@@ -1,3 +1,8 @@
+// External modules
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 // Configs
 import configs from './configs';
 
@@ -9,5 +14,5 @@ import app from './app';
 
 const server = new Server(configs.deployment);
 
-server.loadApp({ route: '/', app });
+server.loadApp({ path: '/api', router: app });
 server.start();
