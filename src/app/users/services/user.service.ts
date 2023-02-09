@@ -37,6 +37,19 @@ export class UserService implements IUserService {
         }
     };
 
+    async getRepositoriesByUsername(username: string): Promise<UserRepository[]> {
+        try {
+            if (!username) throw new RequiredParameterError('username');
+
+            const repositories = await this.provider.getRepositoriesByUsername(username);
+            const mappedRepositories = this.mapRepositories(repositories);
+
+            return mappedRepositories;
+        } catch (error) {
+            throw error;
+        }
+    };
+
     private mapUserDetails(user: GitHubUserDetailed): UserDetails {
         const { id, login, html_url, created_at } = user;
 
@@ -46,5 +59,9 @@ export class UserService implements IUserService {
             profile_url: html_url,
             created_at,
         };
+    };
+
+    private mapRepositories(repositories: GitHubRepository[]): UserRepository[] {
+        return <UserRepository[]>repositories;
     };
 }
