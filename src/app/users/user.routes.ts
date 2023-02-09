@@ -14,4 +14,7 @@ router.route('/')
 router.route('/:username/details')
     .get(async (req: Request, res: Response) => await (new UserController()).getDetailsByUsername(req, res));
 
+router.route('/:username/repositories')
+    .get(async (req: Request, res: Response) => await (new UserController()).getRepositoriesByUsername(req, res))
+
 export default router;
