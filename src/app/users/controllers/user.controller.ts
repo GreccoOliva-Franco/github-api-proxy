@@ -39,4 +39,24 @@ export class UserController extends Controller implements IUserController {
             return res.status(responseBody.statusCode).json(responseBody);
         }
     }
+
+    async getDetailsByUsername(req: Request, res: Response): Promise<Response> {
+        try {
+            const { username } = req.params;
+            if (!username) throw new RequiredParameterError('username');
+
+            const data = await this.userService.getDetailsByUsername(username!);
+
+            const responseBody = this.buildSuccessResponse(200, data);
+
+            return res.status(responseBody.statusCode).json(responseBody);
+        } catch (error: any) {
+            let responseBody = this.buildErrorResponse(500, error.message);
+
+            // replace default error when a known error is catched
+            if (error instanceof RequiredParameterError) responseBody = this.buildErrorResponse(400, error.message);
+
+            return res.status(responseBody.statusCode).json(responseBody);
+        }
+    }
 }
