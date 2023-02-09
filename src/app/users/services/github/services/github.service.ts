@@ -9,6 +9,7 @@ import {
 import {
     GitHubUser,
     GitHubUsersFilterOptions,
+    GitHubUserDetailed,
 } from "../interfaces/github.interface";
 
 
@@ -23,6 +24,11 @@ export class GithubService implements IGithubService {
             host: 'https://api.github.com',
             users: {
                 root: '/users',
+                by: {
+                    username: {
+                        root: '/users/:username',
+                    },
+                }
             },
         };
     };
@@ -34,6 +40,19 @@ export class GithubService implements IGithubService {
             const { data: users } = await axios.get(url, { params: githubFilter });
 
             return <GitHubUser[]>users;
+        } catch (error: unknown) {
+            throw new ServiceUnavailableException('Service is unavailable');
+        }
+    };
+
+    async getUser(username: string): Promise<GitHubUserDetailed> {
+        try {
+            const url = `${this.endpoints.host}${this.endpoints.users.by.username.root}`
+                .replace(':username', username);
+
+            const { data: user } = await axios.get(url);
+
+            return <GitHubUserDetailed>user;
         } catch (error: unknown) {
             throw new ServiceUnavailableException('Service is unavailable');
         }

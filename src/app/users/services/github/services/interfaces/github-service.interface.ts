@@ -8,4 +8,5 @@ import {
 
 export interface IGithubService {
     getUsers: (filter: UsersFilterOptions) => Promise<GitHubUser[]>;
+    getUser: (username: string) => Promise<GitHubUser>;
 }
