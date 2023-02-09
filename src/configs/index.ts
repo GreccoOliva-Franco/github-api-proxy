@@ -1,8 +1,4 @@
-// External modules
-import dotenv from 'dotenv';
-
-dotenv.config({ path: process.cwd() })
-
+// Configs
 import deploymentConfigs from './deploy/deploy.config';
 
 export default {
